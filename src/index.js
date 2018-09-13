@@ -2,6 +2,7 @@ class Sorter {
 
   constructor(array) {
     this.array = [];
+    this.currentCond = false;
   }
 
   add(element) {
@@ -22,20 +23,23 @@ class Sorter {
 
   sort(indices) {
     let sortedArray = [];
-    for (var i = 0; i < indices.length; i++) {
+    for (let i = 0; i < indices.length; i++) {
       sortedArray.push(this.array[indices[i]]);
     }
-    for(let j = 0; j < sortedArray.length; i++){
-      for(let k = j; k < sortedArray.length; k++) {
-        sortedArray.sort((a, b) => {return a - b;} );
-      }
+    if (this.currentCond == true) {
+      sortedArray.sort(this.compareFunction);
+    } else {
+      sortedArray.sort();
     }
-    return sortedArray;
+    for (let i = 0; i < indices.length; i++) {
+      this.array[indices[i]] = sortedArray[i];
+    }
   }
 
-  //  setComparator(compareFunction) {
-  //
-  // }
+   setComparator(compareFunction) {
+     this.compareFunction = compareFunction;
+     this.currentCondcond = true;
+  }
 }
 
 module.exports = Sorter;
